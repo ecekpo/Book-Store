@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Header from './Header';
 import BookList from './BookList';
 import Form from './Form';
 
@@ -8,16 +9,19 @@ const Books = () => {
   const addBooks = () => setBooks();
 
   return (
-    <div>
-      {books.map((books) => (
-        <BookList
-          key={books.id}
-          title={books.title}
-          author={books.author}
-        />
-      ))}
-      <Form addBooks={addBooks} />
-    </div>
+    <>
+      <Header />
+      <div>
+        {books.map((books) => (
+          <BookList
+            key={books.id}
+            title={books.title}
+            author={books.author}
+          />
+        ))}
+        <Form addBooks={addBooks} />
+      </div>
+    </>
   );
 };
 
