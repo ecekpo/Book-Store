@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <Routes>
       <Route path="/" element={<Books />} />
-      <Route path="/" element={<Categories />} />
+      <Route path="/categroies" element={<Categories />} />
     </Routes>
   );
 }

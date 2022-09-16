@@ -7,7 +7,7 @@ const Header = () => (
       <h1>Bookstore CMS</h1>
       <ul>
         <li><Link to="/" style={{ textDecoration: 'none' }}>BOOKS</Link></li>
-        <li><Link to="/" style={{ textDecoration: 'none' }}>CATEGORIES</Link></li>
+        <li><Link to="/categories" style={{ textDecoration: 'none' }}>CATEGORIES</Link></li>
       </ul>
     </nav>
   </div>
