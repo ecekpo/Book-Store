@@ -1,64 +1,60 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
 const ADD_NEW_BOOK = 'bookstore/books/ADD_NEW_BOOK';
 const DELETE_BOOK = 'bookstore/books/DELETE_BOOK';
-const BookArr = [
-  {
-    id: 1,
-    title: 'The Tempest',
-    author: 'William Shakespear',
-    chapter: 4,
-    genre: 'Adventure Fiction',
+const FETCH_BOOKS = 'bookstore/books/FETCH_BOOK';
+
+const BookArr = [];
+export const addedbooks = createAsyncThunk(
+  ADD_NEW_BOOK,
+  async (item) => {
+    await axios.post('https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/lJao5He3QugK5nNbGykj/books', {
+      item_id: item.id,
+      title: item.title,
+      author: item.author,
+      category: item.category,
+    });
+    return {
+      book: [
+        item.id,
+        [{
+          author: item.author,
+          title: item.title,
+          category: item.category,
+        }],
+      ],
+    };
   },
-  {
-    id: 2,
-    title: 'The Gods Are Not To Blame',
-    author: 'Ola Rotimi',
-    chapter: 7,
-    genre: 'novel',
-  },
-  {
-    id: 3,
-    title: 'Even One Child',
-    author: 'Moses Akpanbio',
-    chaper: 5,
-    genre: 'novel',
-  },
-  {
-    id: 4,
-    title: 'A Tale of Thoughts',
-    author: 'Uchecukwu Onwu',
-    chapter: 10,
-    genre: 'poetry',
-  },
-  {
-    id: 5,
-    title: 'Dawn of a New Day',
-    author: 'Benedicta Naomi Mbanuzue',
-    chapter: 8,
-    genre: 'poetry',
-  },
-];
+);
+export const booksDeletedFromApi = createAsyncThunk(DELETE_BOOK, async (id) => {
+  await axios.delete(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/lJao5He3QugK5nNbGykj/books/${id}`);
+  return { id };
+});
+
+// Reducer
+
 const bookReducer = (state = BookArr, action) => {
   switch (action.type) {
-    case ADD_NEW_BOOK:
-      return [
-        ...state, action.book,
-      ];
-    case DELETE_BOOK:
-      return state.filter((book) => book.id !== action.id);
+    case `${FETCH_BOOKS}/fulfilled`:
+      return action.payload.books;
+    case `${ADD_NEW_BOOK}/fulfilled`:
+      return [...state, action.payload.book];
+    case `${DELETE_BOOK}/fulfilled`:
+      return state.filter((item) => item[0] !== action.payload.id);
     default:
       return state;
   }
 };
 
-export const addedbooks = (book) => ({
+// API Books Fetch
 
-  type: ADD_NEW_BOOK,
-  book,
-});
-
-export const booksDeleted = (id) => ({
-  type: DELETE_BOOK,
-  id,
-});
+export const fetchBooksFromApi = createAsyncThunk(
+  FETCH_BOOKS,
+  async () => {
+    const { data } = await axios.get('https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/lJao5He3QugK5nNbGykj/books');
+    return { books: Object.entries(data) };
+  },
+);
 
 export default bookReducer;

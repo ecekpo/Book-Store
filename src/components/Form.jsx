@@ -1,52 +1,56 @@
 import React, { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { addedbooks } from '../redux/books/books';
 
 const Form = () => {
   const dispatch = useDispatch();
-  const [form, setForm] = useState({ title: '', author: '' });
-  const handleChange = (e) => {
-    e.preventDefault();
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
 
-    if (form.title.trim() && form.author.trim()) {
-      const data = {
-        id: Date.now(),
-        title: form.title,
-        author: form.author,
-      };
-      dispatch(addedbooks(data));
-      setForm({ title: '', author: '' });
+  const bookAdded = (event) => {
+    event.preventDefault();
+    const book = {
+      id: uuid(),
+      title,
+      author,
+      category: `${['Thriller', 'Fiction', 'Comedy'][Math.floor(Math.random() * ['Thriller', 'Fiction', 'Comedy'].length)]}`,
+    };
+    if (title.length && author.length) {
+      dispatch(addedbooks(book));
+      setTitle('');
+      setAuthor('');
     }
   };
+
+  const newBookTitle = (e) => {
+    setTitle(e.target.value);
+  };
+  const newBookAuthor = (e) => {
+    setAuthor(e.target.value);
+  };
   return (
-    <div>
-      <h2>ADD NEW BOOK</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="title"
-          type="text"
-          placeholder="Book title"
-          value={form.title}
-          onChange={handleChange}
-        />
-        <input
-          name="author"
-          type="text"
-          placeholder="Category"
-          value={form.author}
-          onChange={handleChange}
-        />
-        <button type="submit">
-          ADD BOOK
-        </button>
-      </form>
+    <div className="form-container">
+      <div>
+        <h2>ADD NEW BOOK</h2>
+        <form onSubmit={bookAdded}>
+          <input
+            name="title"
+            type="text"
+            placeholder="Book title"
+            value={title}
+            onChange={newBookTitle}
+          />
+          <input
+            name="author"
+            type="text"
+            placeholder="Category"
+            value={author}
+            onChange={newBookAuthor}
+          />
+          <button type="submit">ADD BOOK</button>
+        </form>
+      </div>
     </div>
   );
 };
