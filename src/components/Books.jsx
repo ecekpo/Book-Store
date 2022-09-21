@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import BookList from './BookList';
 import Form from './Form';
-// import Header from './Header';
+import Header from './Header';
 
 const DisplayBooks = () => {
   const books = useSelector((state) => state.books);
 
   return (
     <>
-      <header />
+      <Header />
       <div>
         {books.map((book) => (
           <BookList

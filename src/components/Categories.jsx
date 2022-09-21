@@ -7,11 +7,15 @@ const Categories = () => {
   const bookCategories = useSelector((state) => state.categories);
   const dispatch = useDispatch();
 
+  const checkCategoriesStatus = () => {
+    dispatch(bookStatus());
+  };
+
   return (
     <>
       <Header />
       <div>
-        <button type="submit" onClick={() => dispatch(bookStatus())}>Check Status</button>
+        <button type="submit" onClick={checkCategoriesStatus}>Check Status</button>
         <div>{bookCategories}</div>
       </div>
     </>
