@@ -28,7 +28,7 @@ export const addedbooks = createAsyncThunk(
   },
 );
 export const booksDeletedFromApi = createAsyncThunk(DELETE_BOOK, async (id) => {
-  await axios.delete(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/BZgwqZ2DNziuT17roN8k/books/${id}`);
+  await axios.delete(`https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/lJao5He3QugK5nNbGykj/books/${id}`);
   return { id };
 });
 
@@ -52,7 +52,7 @@ const bookReducer = (state = BookArr, action) => {
 export const fetchBooksFromApi = createAsyncThunk(
   FETCH_BOOKS,
   async () => {
-    const { data } = await axios.get('https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/BZgwqZ2DNziuT17roN8k/books');
+    const { data } = await axios.get('https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/lJao5He3QugK5nNbGykj/books');
     return { books: Object.entries(data) };
   },
 );
