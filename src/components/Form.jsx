@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { addedbooks } from '../redux/books/books';
 
+const Categories = ['Thriller', 'Fiction', 'Economy', 'Comedy'];
 const Form = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('');
@@ -61,7 +62,7 @@ const Form = () => {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                {category.map((category) => (
+                {Categories.map((category) => (
                   <option value={category} key={category} className="option">
                     {category}
                   </option>
