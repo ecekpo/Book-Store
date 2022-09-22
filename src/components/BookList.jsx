@@ -48,7 +48,7 @@ function BookList({
             Completed
           </div>
         </div>
-        <span className="book-chapter" />
+        <span className="book-chapter-span" />
         <div className="book_chapter">
           <h3>CURRENT CHAPTER</h3>
           <span>
