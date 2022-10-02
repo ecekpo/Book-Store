@@ -11,7 +11,7 @@
 
 ## Live Demo (if available)
 
-[Live Demo Link](https://livedemo.com)
+[Live Demo Link](https://beautiful-squirrel-7101c0.netlify.app/)
 
 
 ## Getting Started
